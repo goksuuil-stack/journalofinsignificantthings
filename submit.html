@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Your Work — Journal of Insignificant Things</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:      #ffffff;
+    --off:        #f5f5ef;
+    --ink:        #0a0a0a;
+    --chartreuse: #d4ff00;
+    --violet:     #7b00ff;
+    --magenta:    #ff0066;
+    --cyan:       #00e5ff;
+    --mid:        #e0e0d8;
+    --muted:      #888880;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    overflow-x: hidden;
+  }
+
+  em, i { font-style: normal; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--white);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo .dot { color: var(--magenta); }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    height: 100%;
+  }
+
+  .nav-links li { height: 100%; }
+
+  .nav-links a {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0 22px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid var(--mid);
+    transition: background 0.15s;
+  }
+
+  .nav-links a:hover { background: var(--chartreuse); }
+  .nav-links a.active { background: var(--chartreuse); }
+
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--chartreuse);
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: background 0.15s;
+    margin-left: 12px;
+  }
+
+  .nav-cta:hover { background: var(--magenta); color: var(--white); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    border-bottom: 2px solid var(--ink);
+    min-height: 320px;
+  }
+
+  .header-left {
+    padding: 64px 56px;
+    border-right: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .page-kicker {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .page-kicker span { color: var(--magenta); margin-right: 8px; }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  .page-title .hl { color: var(--magenta); }
+
+  .page-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 520px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--mid);
+  }
+
+  .header-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-stat {
+    flex: 1;
+    padding: 32px 36px;
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .header-stat:last-child { border-bottom: none; background: var(--chartreuse); }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .stat-lbl {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .header-stat:last-child .stat-lbl { color: rgba(0,0,0,0.5); }
+
+  /* ── SEC BAR ── */
+  .sec-bar {
+    display: flex;
+    align-items: center;
+    height: 52px;
+    padding: 0 40px;
+    border-bottom: 2px solid var(--ink);
+    background: var(--off);
+    gap: 24px;
+  }
+
+  .sec-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    background: var(--ink);
+    padding: 0 16px;
+    height: 52px;
+    margin-left: -40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sec-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  /* ── FORM LAYOUT ── */
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .form-main {
+    padding: 64px 56px;
+    border-right: 2px solid var(--ink);
+  }
+
+  /* ── FORM ELEMENTS ── */
+  .form-group {
+    margin-bottom: 36px;
+  }
+
+  .form-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .form-label .required { color: var(--magenta); margin-left: 2px; }
+
+  .form-hint {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--white);
+    border: 2px solid var(--ink);
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--violet);
+    background: #fafafa;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 140px;
+    line-height: 1.7;
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230a0a0a' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 44px;
+    cursor: pointer;
+  }
+
+  /* Radio group */
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2px solid var(--ink);
+  }
+
+  .radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--mid);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .radio-option:last-child { border-bottom: none; }
+  .radio-option:hover { background: var(--off); }
+
+  .radio-option input[type="radio"] {
+    accent-color: var(--violet);
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .radio-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .radio-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Two col row */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Submit button */
+  .form-submit {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--chartreuse);
+    padding: 18px 40px;
+    border: 2px solid var(--ink);
+    cursor: pointer;
+    transition: background 0.15s;
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .form-submit:hover { background: var(--violet); }
+
+  /* Success state */
+  .form-success {
+    display: none;
+    background: var(--chartreuse);
+    border: 2px solid var(--ink);
+    padding: 40px 48px;
+    text-align: center;
+  }
+
+  .success-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .success-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    opacity: 0.7;
+  }
+
+  /* ── SIDEBAR ── */
+  .form-sidebar {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-block {
+    padding: 36px 36px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .sidebar-block:last-child { border-bottom: none; flex: 1; }
+
+  .sidebar-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 16px;
+  }
+
+  .sidebar-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .sidebar-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .rule-list {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .rule-list li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--ink);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--mid);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .rule-list li:last-child { border-bottom: none; }
+
+  .rule-check {
+    width: 18px; height: 18px;
+    background: var(--chartreuse);
+    border: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .ai-note {
+    background: var(--ink);
+    padding: 24px 28px;
+    margin-top: 20px;
+  }
+
+  .ai-note-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--chartreuse);
+    margin-bottom: 10px;
+  }
+
+  .ai-note p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+
+  .f-brand {
+    padding: 56px 48px;
+    border-right: 1px solid #1e1e1e;
+  }
+
+  .f-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .f-logo span { color: var(--chartreuse); }
+
+  .f-info {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #444;
+    line-height: 2;
+    margin-top: 16px;
+  }
+
+  .f-motto {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-top: 32px;
+  }
+
+  .f-col {
+    padding: 56px 40px;
+    border-right: 1px solid #1e1e1e;
+  }
+
+  .f-col:last-child { border-right: none; }
+
+  .f-col h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--chartreuse);
+    margin-bottom: 24px;
+  }
+
+  .f-col ul { list-style: none; }
+
+  .f-col ul li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #555;
+    padding: 7px 0;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .f-col ul li:hover { color: var(--white); }
+
+  .f-col ul li a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .f-bottom {
+    grid-column: 1 / -1;
+    border-top: 1px solid #1a1a1a;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .f-copy {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: #2e2e2e;
+  }
+
+  .f-lic {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #252525;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .page-header { animation: up 0.6s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .page-header, .form-layout { grid-template-columns: 1fr; }
+    .header-right { display: none; }
+    .header-left, .form-main { padding: 40px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .f-brand, .f-col { border-right: none; border-bottom: 1px solid #1a1a1a; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">J<span class="dot">.</span>I<span class="dot">.</span>T</a>
+  <ul class="nav-links">
+    <li><a href="index.html#tracks">Browse</a></li>
+    <li><a href="index.html#papers">Papers</a></li>
+    <li><a href="index.html#editorial">Editorial</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="submit.html" class="nav-cta active">Submit Work</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-left">
+    <div>
+      <div class="page-kicker"><span>04</span> Submissions</div>
+      <h1 class="page-title">Submit<br>Your <span class="hl">Work</span></h1>
+    </div>
+    <p class="page-desc">We accept submissions from human authors, AI-assisted works, and fully AI-authored pieces with appropriate disclosure. What we require is not credentials. It is a genuine question and an honest inquiry.</p>
+  </div>
+
+  <div class="header-right">
+    <div class="header-stat">
+      <div class="stat-num">2</div>
+      <div class="stat-lbl">Published Papers</div>
+    </div>
+    <div class="header-stat">
+      <div class="stat-num">0</div>
+      <div class="stat-lbl">Credentials Required</div>
+    </div>
+    <div class="header-stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-lbl">Insignificant Questions Welcome</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM SECTION -->
+<div>
+  <div class="sec-bar">
+    <div class="sec-num">01</div>
+    <span class="sec-name">Submission Form</span>
+  </div>
+
+  <div class="form-layout">
+    <div class="form-main">
+
+      <!-- Replace YOUR_FORM_ID with your Formspree form ID -->
+      <form id="submit-form" action="https://formspree.io/f/mqenejpb" method="POST">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Full Name <span class="required">*</span></label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="title">Paper Title <span class="required">*</span></label>
+          <input class="form-input" type="text" id="title" name="title" placeholder="The full title of your submission" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="track">Track <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="track" value="Research" required>
+              <div>
+                <span class="radio-label">Research</span>
+                <span class="radio-desc">Rigorous inquiry into a trivial, overlooked, or genuinely insignificant subject</span>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="track" value="Premature Theory">
+              <div>
+                <span class="radio-label">Premature Theory</span>
+                <span class="radio-desc">An original idea too speculative or unconventional for established peer review</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="category">Category <span class="required">*</span></label>
+          <select class="form-select" id="category" name="category" required>
+            <option value="" disabled selected>Select a category</option>
+            <optgroup label="Mathematical & Physical Sciences">
+              <option>Mathematics</option>
+              <option>Physics</option>
+              <option>Chemistry</option>
+              <option>Astronomy</option>
+              <option>Engineering</option>
+              <option>Computer Science</option>
+            </optgroup>
+            <optgroup label="Biological Sciences">
+              <option>Biochemistry</option>
+              <option>Neuroscience</option>
+              <option>Evolution</option>
+              <option>Medical Sciences</option>
+            </optgroup>
+            <optgroup label="Social & Behavioral Sciences">
+              <option>Psychology</option>
+              <option>Economics</option>
+              <option>Political Science</option>
+              <option>Law</option>
+              <option>Sociology</option>
+            </optgroup>
+            <optgroup label="Arts & Cultural Studies">
+              <option>Visual Arts</option>
+              <option>Architecture</option>
+              <option>Music</option>
+              <option>Literature</option>
+              <option>Performing Arts</option>
+              <option>Film & Media</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="authorship">Authorship Type <span class="required">*</span></label>
+          <select class="form-select" id="authorship" name="authorship" required>
+            <option value="" disabled selected>Select authorship type</option>
+            <option>Human-authored — written entirely by a human author</option>
+            <option>AI-assisted — written primarily by a human, AI helped with drafting or research</option>
+            <option>AI-authored — written primarily by AI, with human direction and oversight</option>
+            <option>Collaborative — equal or indeterminate contribution from human and AI</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="abstract">Abstract <span class="required">*</span></label>
+          <span class="form-hint">150–300 words. What is the question? What is the argument?</span>
+          <textarea class="form-textarea" id="abstract" name="abstract" placeholder="State your question and your argument clearly. The editors read abstracts first." required style="min-height: 160px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="link">Link to Full Paper</label>
+          <span class="form-hint">Google Drive, Dropbox, or any accessible link to your full submission (PDF or DOCX)</span>
+          <input class="form-input" type="url" id="link" name="link" placeholder="https://...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Anything Else</label>
+          <span class="form-hint">Context, background, or anything you want the editors to know</span>
+          <textarea class="form-textarea" id="notes" name="notes" placeholder="Optional." style="min-height: 100px;"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Submit Paper →</button>
+
+      </form>
+
+      <!-- Success message shown after submission -->
+      <div class="form-success" id="success">
+        <div class="success-big">Received.</div>
+        <div class="success-sub">Your submission has been sent to the editors. We will be in touch.</div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="form-sidebar">
+
+      <div class="sidebar-block">
+        <div class="sidebar-label">Standards</div>
+        <div class="sidebar-title">What We Require</div>
+        <ul class="rule-list">
+          <li><span class="rule-check">✓</span> Original work — no plagiarism</li>
+          <li><span class="rule-check">✓</span> No discriminatory or hateful language</li>
+          <li><span class="rule-check">✓</span> No defamatory content</li>
+          <li><span class="rule-check">✓</span> Factual claims must be supportable</li>
+          <li><span class="rule-check">✓</span> AI authorship disclosed</li>
+          <li><span class="rule-check">✓</span> The question must be genuine</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-label">What We Publish</div>
+        <div class="sidebar-title">The Kind of Work We're Looking For</div>
+        <div class="sidebar-body">
+          Rigorous inquiry into trivial subjects. Original theories not yet ready for the mainstream. Questions nobody has bothered to ask. Minor grievances treated with full scholarly apparatus. Thought experiments that are rigorous and useless. Unnecessary histories of things nobody asked about.
+        </div>
+        <div class="ai-note">
+          <div class="ai-note-label">On AI Authorship</div>
+          <p>AI, used honestly, is a tool of expression — no different from a translator or editor. The idea must originate somewhere. If you can answer whose thought is this — you may submit it here.</p>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-label">Response Time</div>
+        <div class="sidebar-title">What Happens Next</div>
+        <div class="sidebar-body">
+          The editors review all submissions. We aim to respond within a period that is prompt by academic standards — which is to say, eventually. All submissions receive a response. Not all submissions are accepted. The editors' judgment is final and will not be elaborated upon.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <a href="index.html" class="f-logo">Journal of <span>Insignificant</span> Things</a>
+    <div class="f-info">
+      Vol. I · Est. 2026 · ISSN Pending<br>
+      Open Access<br>
+      CC Attribution-Pointless 4.0<br><br>
+      A publication for curious minds<br>
+      without institutional cover.
+    </div>
+    <div class="f-motto">Credentials Do Not Apply</div>
+  </div>
+
+  <div class="f-col">
+    <h4>Navigate</h4>
+    <ul>
+      <li><a href="index.html">Homepage</a></li>
+      <li><a href="index.html#papers">Current Issue</a></li>
+      <li><a href="index.html#tracks">Research Track</a></li>
+      <li><a href="index.html#tracks">Premature Theories</a></li>
+      <li><a href="index.html#editorial">Founding Editorial</a></li>
+      <li><a href="submit.html">Submit Work</a></li>
+    </ul>
+  </div>
+
+  <div class="f-col">
+    <h4>Categories</h4>
+    <ul>
+      <li>Mathematical &amp; Physical Sciences</li>
+      <li>Biological Sciences</li>
+      <li>Social &amp; Behavioral Sciences</li>
+      <li>Arts &amp; Cultural Studies</li>
+    </ul>
+  </div>
+
+  <div class="f-bottom">
+    <div class="f-copy">© 2026 Journal of Insignificant Things · All rights reserved</div>
+    <div class="f-lic">Credentials Do Not Apply</div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('submit-form');
+  const success = document.getElementById('success');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>
