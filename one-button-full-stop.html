@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Button, Full Stop — Journal of Insignificant Things</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:      #ffffff;
+    --off:        #f5f5ef;
+    --ink:        #0a0a0a;
+    --chartreuse: #d4ff00;
+    --violet:     #7b00ff;
+    --magenta:    #ff0066;
+    --cyan:       #00e5ff;
+    --mid:        #e0e0d8;
+    --muted:      #888880;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    overflow-x: hidden;
+  }
+
+  em, i { font-style: normal; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--white);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo .dot { color: var(--magenta); }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    height: 100%;
+  }
+
+  .nav-links li { height: 100%; }
+
+  .nav-links a {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0 22px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid var(--mid);
+    transition: background 0.15s;
+  }
+
+  .nav-links a:hover { background: var(--chartreuse); }
+
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--chartreuse);
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: background 0.15s;
+    margin-left: 12px;
+  }
+
+  .nav-cta:hover { background: var(--magenta); color: var(--white); }
+
+  /* ── PAPER MASTHEAD ── */
+  .masthead {
+    margin-top: 60px;
+    border-bottom: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    min-height: 520px;
+  }
+
+  .masthead-left {
+    padding: 64px 64px 56px;
+    border-right: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .paper-tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 13px;
+    color: var(--white);
+  }
+
+  .tag-research { background: var(--magenta); }
+  .tag-cat { background: var(--ink); }
+  .tag-track { background: var(--cyan); color: var(--ink); }
+
+  .paper-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .paper-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+
+  .paper-byline {
+    padding-top: 28px;
+    border-top: 2px solid var(--mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .byline-info {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .byline-info strong { color: var(--ink); font-weight: 700; }
+
+  .download-btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--chartreuse);
+    border: 2px solid var(--ink);
+    padding: 8px 18px;
+    text-decoration: none;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .download-btn:hover { background: var(--cyan); }
+
+  /* Masthead right panel */
+  .masthead-right {
+    display: flex;
+    flex-direction: column;
+    background: var(--off);
+  }
+
+  .masthead-panel {
+    padding: 28px 32px;
+    border-bottom: 2px solid var(--ink);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .masthead-panel:last-child { border-bottom: none; }
+
+  .panel-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .panel-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .panel-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* TOC */
+  .toc-panel {
+    padding: 28px 32px;
+    background: var(--ink);
+  }
+
+  .toc-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--chartreuse);
+    margin-bottom: 14px;
+  }
+
+  .toc-list { list-style: none; }
+
+  .toc-list li { border-bottom: 1px solid #1e1e1e; }
+  .toc-list li:last-child { border-bottom: none; }
+
+  .toc-list a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    padding: 7px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.15s;
+  }
+
+  .toc-list a:hover { color: var(--white); }
+  .toc-arrow { font-size: 14px; }
+
+  /* ── PAPER LAYOUT ── */
+  .paper-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  /* Sticky section nav */
+  .paper-sidenav {
+    border-right: 2px solid var(--ink);
+    position: sticky;
+    top: 60px;
+    align-self: start;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background: var(--white);
+  }
+
+  .sidenav-inner { padding: 36px 24px; }
+
+  .sidenav-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .sidenav-list { list-style: none; }
+
+  .sidenav-list li { margin-bottom: 2px; }
+
+  .sidenav-list a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    display: block;
+    padding: 7px 10px;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    line-height: 1.4;
+  }
+
+  .sidenav-list a:hover {
+    color: var(--ink);
+    border-left-color: var(--magenta);
+  }
+
+  /* Paper prose */
+  .paper-prose {
+    padding: 72px 88px;
+    max-width: 820px;
+  }
+
+  /* Abstract box */
+  .abstract-box {
+    background: var(--off);
+    border: 2px solid var(--ink);
+    padding: 32px 40px;
+    margin-bottom: 64px;
+  }
+
+  .abstract-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 14px;
+  }
+
+  .abstract-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #444;
+  }
+
+  .keywords {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .keywords strong { color: var(--ink); font-weight: 700; }
+
+  /* Section headings */
+  .paper-section {
+    margin-bottom: 56px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-num-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    background: var(--ink);
+    padding: 4px 12px;
+  }
+
+  .section-title-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .subsection-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Body text */
+  .p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: #3a3a3a;
+    margin-bottom: 22px;
+  }
+
+  /* Math / indented */
+  .math-line {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    padding: 8px 0 8px 32px;
+    border-left: 3px solid var(--chartreuse);
+    margin: 16px 0;
+    background: var(--off);
+  }
+
+  /* Conclusion highlight */
+  .conclusion-pull {
+    background: var(--chartreuse);
+    border: 2px solid var(--ink);
+    padding: 24px 36px;
+    margin: 32px 0;
+  }
+
+  .conclusion-pull p {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+
+  /* References */
+  .references-list {
+    list-style: none;
+  }
+
+  .references-list li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--mid);
+    padding-left: 20px;
+    text-indent: -20px;
+  }
+
+  .references-list li:last-child { border-bottom: none; }
+
+  /* Acknowledgements */
+  .ack-box {
+    background: var(--off);
+    border-left: 4px solid var(--violet);
+    padding: 20px 28px;
+    margin-bottom: 48px;
+  }
+
+  .ack-box p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  /* ── NEXT PAPER ── */
+  .next-paper {
+    background: var(--ink);
+    padding: 64px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .next-card {
+    background: #111;
+    padding: 40px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.15s;
+  }
+
+  .next-card:hover { background: #181818; }
+
+  .next-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--chartreuse);
+    margin-bottom: 14px;
+  }
+
+  .next-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .next-card-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+  }
+
+  .next-arrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: rgba(255,255,255,0.15);
+    margin-top: 20px;
+    display: block;
+    transition: color 0.15s;
+  }
+
+  .next-card:hover .next-arrow { color: var(--chartreuse); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+
+  .f-brand { padding: 56px 48px; border-right: 1px solid #1e1e1e; }
+
+  .f-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .f-logo span { color: var(--chartreuse); }
+  .f-info { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #444; line-height: 2; margin-top: 16px; }
+  .f-motto { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--magenta); margin-top: 32px; }
+  .f-col { padding: 56px 40px; border-right: 1px solid #1e1e1e; }
+  .f-col:last-child { border-right: none; }
+  .f-col h4 { font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--chartreuse); margin-bottom: 24px; }
+  .f-col ul { list-style: none; }
+  .f-col ul li { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; padding: 7px 0; transition: color 0.15s; }
+  .f-col ul li a { color: inherit; text-decoration: none; }
+  .f-col ul li:hover { color: var(--white); }
+  .f-bottom { grid-column: 1 / -1; border-top: 1px solid #1a1a1a; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .f-copy { font-family: 'DM Sans', sans-serif; font-size: 11px; color: #2e2e2e; }
+  .f-lic { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #252525; }
+
+  /* Animations */
+  @keyframes up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead { animation: up 0.6s ease both; }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .masthead, .paper-layout, .next-paper { grid-template-columns: 1fr; }
+    .masthead-right { display: none; }
+    .masthead-left { padding: 40px 24px; }
+    .paper-sidenav { display: none; }
+    .paper-prose { padding: 48px 24px; }
+    footer { grid-template-columns: 1fr; }
+    .f-brand, .f-col { border-right: none; border-bottom: 1px solid #1a1a1a; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">J<span class="dot">.</span>I<span class="dot">.</span>T</a>
+  <ul class="nav-links">
+    <li><a href="index.html#tracks">Browse</a></li>
+    <li><a href="index.html#papers">Papers</a></li>
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="submit.html" class="nav-cta">Submit Work</a>
+</nav>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-left">
+    <div>
+      <div class="paper-tags">
+        <span class="tag tag-research">Research</span>
+        <span class="tag tag-track">Track I</span>
+        <span class="tag tag-cat">Mathematical &amp; Physical Sciences</span>
+      </div>
+      <h1 class="paper-title">One Button, Full Stop: The Utilitarian Calculus of the Pedestrian-Activated Traffic Signal</h1>
+      <p class="paper-subtitle">A Quantitative Inquiry into Whether One Person Should Be Allowed to Stop Everybody</p>
+    </div>
+    <div class="paper-byline">
+      <div class="byline-info">
+        <strong>Göksu I. O.</strong><br>
+        Authorship: AI-Authored · Vol. I, No. 1 · May 2026<br>
+        Received: May 2026 · Accepted: May 2026 · Revised: Never
+      </div>
+      <a href="one_button_full_stop.docx" class="download-btn" download>Download .docx ↓</a>
+    </div>
+  </div>
+
+  <div class="masthead-right">
+    <div class="masthead-panel">
+      <div class="panel-label">Reading Time</div>
+      <div class="panel-value">12 Min</div>
+      <div class="panel-sub">Approximately</div>
+    </div>
+    <div class="masthead-panel">
+      <div class="panel-label">Key Finding</div>
+      <div class="panel-value">Net −5.0</div>
+      <div class="panel-sub">Person-minutes per crossing event</div>
+    </div>
+    <div class="masthead-panel">
+      <div class="panel-label">Verdict</div>
+      <div class="panel-value">Justified</div>
+      <div class="panel-sub">At the systemic level</div>
+    </div>
+    <div class="toc-panel">
+      <div class="toc-label">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#abstract">Abstract <span class="toc-arrow">→</span></a></li>
+        <li><a href="#intro">1. Introduction <span class="toc-arrow">→</span></a></li>
+        <li><a href="#background">2. Background <span class="toc-arrow">→</span></a></li>
+        <li><a href="#model">3. The Time-Loss Model <span class="toc-arrow">→</span></a></li>
+        <li><a href="#systemic">4. The Systemic Reversal <span class="toc-arrow">→</span></a></li>
+        <li><a href="#placebo">5. The Placebo Button <span class="toc-arrow">→</span></a></li>
+        <li><a href="#discussion">6. Discussion <span class="toc-arrow">→</span></a></li>
+        <li><a href="#conclusion">7. Conclusion <span class="toc-arrow">→</span></a></li>
+        <li><a href="#references">References <span class="toc-arrow">→</span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PAPER BODY -->
+<div class="paper-layout">
+
+  <!-- Side nav -->
+  <div class="paper-sidenav">
+    <div class="sidenav-inner">
+      <div class="sidenav-label">Sections</div>
+      <ul class="sidenav-list">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#intro">1. Introduction</a></li>
+        <li><a href="#background">2. Background</a></li>
+        <li><a href="#model">3. The Time-Loss Model</a></li>
+        <li><a href="#systemic">4. The Systemic Reversal</a></li>
+        <li><a href="#placebo">5. The Placebo Button</a></li>
+        <li><a href="#discussion">6. Discussion</a></li>
+        <li><a href="#conclusion">7. Conclusion</a></li>
+        <li><a href="#ack">Acknowledgements</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Prose -->
+  <div class="paper-prose">
+
+    <!-- Abstract -->
+    <div id="abstract">
+      <div class="abstract-box">
+        <div class="abstract-label">Abstract</div>
+        <p class="abstract-text">This paper undertakes a rigorous utilitarian examination of the pedestrian-activated traffic signal — commonly known in Germany as the Bedarfsampel — with particular attention to the moral legitimacy of a single individual halting the movement of several hundred motorists. Using standard traffic engineering parameters, we construct a time-loss model to quantify the aggregate cost imposed on vehicle traffic per pedestrian crossing event. We then subject this cost to a Benthamite calculus, evaluating whether the practice maximizes aggregate utility. Our analysis reveals a non-trivial paradox: the local transaction (one person crossing) appears utilitarian negative, while the systemic function (predictable pedestrian infrastructure) is robustly utilitarian positive. Furthermore, we introduce the compliance culture variable and demonstrate that the utilitarian value of the button is functionally dependent on the pedestrian obedience norms of the host city. We conclude that the button is morally justified, though perhaps not for the reasons its users suppose.</p>
+        <div class="keywords"><strong>Keywords:</strong> pedestrian signal, utilitarian ethics, traffic engineering, Germany, Ampelmännchen, aggregate time loss, moral infrastructure, compliance culture</div>
+      </div>
+    </div>
+
+    <!-- 1. Introduction -->
+    <div class="paper-section" id="intro">
+      <div class="section-head">
+        <span class="section-num-badge">1</span>
+        <span class="section-title-text">Introduction</span>
+      </div>
+      <p class="p">In the summer of any given year, a pedestrian approaches a traffic light in a German city. The light is red. The pedestrian presses a button. Somewhere between thirty and ninety seconds later, hundreds of vehicles come to a halt so that this one person may traverse, in approximately fifteen seconds, a stretch of asphalt measuring no more than twelve meters in width. The vehicles then resume. The pedestrian continues with their day.</p>
+      <p class="p">This sequence of events is so commonplace as to be invisible. Yet it contains, if examined with sufficient earnestness, a genuine philosophical problem: is it right for one person to stop everybody else?</p>
+      <p class="p">The question is not merely rhetorical. It touches directly on the foundational architecture of utilitarian moral theory as articulated by Jeremy Bentham (1789) and refined by John Stuart Mill (1863): that the morally correct action is the one that produces the greatest good for the greatest number. On its face, the pedestrian button appears to violate this principle with considerable efficiency. One person benefits. Many suffer — if "suffer" can be applied, with appropriate academic restraint, to the mild inconvenience of a delayed commute.</p>
+      <p class="p">This paper takes the question seriously. We construct a time-loss model using established traffic engineering parameters, apply it to a representative German urban intersection, and ask: does the pedestrian-activated signal survive utilitarian scrutiny? Our answer is yes — but the reasoning is more interesting than one might expect.</p>
+    </div>
+
+    <!-- 2. Background -->
+    <div class="paper-section" id="background">
+      <div class="section-head">
+        <span class="section-num-badge">2</span>
+        <span class="section-title-text">Background and Prior Art</span>
+      </div>
+      <p class="p">The pedestrian push-button signal, or demand-actuated crossing, operates on a straightforward mechanical premise: the pedestrian phase is not included in the default signal cycle but is instead triggered on demand (Bonneson et al., 2009). In Germany, this system is governed by the Richtlinien für Lichtsignalanlagen (RiLSA), which specifies cycle lengths, phase durations, and minimum pedestrian clearance times for urban intersections.</p>
+      <p class="p">Signal cycle lengths in urban environments typically range between 60 and 120 seconds (NACTO, 2012; NYC DOT, 2022), with German practice favoring shorter cycles to reduce pedestrian non-compliance.</p>
+      <p class="p">A notable complication arises from empirical investigation of the buttons themselves. A 2021 audit of 30 pedestrian crossings in Berlin found that the majority of buttons had no discernible effect on signal timing; in most cases, the pedestrian phase was already embedded in the cycle and would have arrived regardless (The Berliner, 2021). For the purposes of this paper, we assume a functionally operative button — one that genuinely interrupts or accelerates the signal cycle. This is the philosophically interesting case.</p>
+    </div>
+
+    <!-- 3. Model -->
+    <div class="paper-section" id="model">
+      <div class="section-head">
+        <span class="section-num-badge">3</span>
+        <span class="section-title-text">The Time-Loss Model</span>
+      </div>
+
+      <div class="subsection-title">3.1 Parameters</div>
+      <p class="p">We model a representative German urban intersection under the following assumptions, drawn from the traffic engineering literature:</p>
+      <div class="math-line">Signal cycle length: 90 seconds (standard urban, RiLSA-compliant)</div>
+      <div class="math-line">Pedestrian green phase duration: 20 seconds (including clearance interval)</div>
+      <div class="math-line">Vehicle green phase interrupted: 20 seconds</div>
+      <div class="math-line">Saturation flow rate: 1,652 passenger car units/hour/lane (Schmitt et al., 2022)</div>
+      <div class="math-line">Number of lanes interrupted: 2</div>
+      <div class="math-line">Average vehicle occupancy: 1.2 persons/vehicle (Eurostat, 2023)</div>
+
+      <div class="subsection-title">3.2 Vehicle Throughput Loss Per Event</div>
+      <p class="p">Saturation flow rate of 1,652 pcu/hr/lane converts to approximately 0.46 vehicles per second per lane. With two lanes interrupted for 20 seconds:</p>
+      <div class="math-line">Vehicles delayed = 0.46 × 2 × 20 ≈ 18.4 vehicles</div>
+      <p class="p">Assuming an average queue of 18 vehicles across two lanes, and an average per-vehicle delay of 25 seconds, the aggregate vehicle-time loss per crossing event is:</p>
+      <div class="math-line">Vehicle-time loss = 18.4 × 25 ≈ 460 vehicle-seconds</div>
+      <p class="p">Adjusting for vehicle occupancy (1.2 persons/vehicle):</p>
+      <div class="math-line">Person-time loss = 460 × 1.2 ≈ 552 person-seconds ≈ 9.2 person-minutes</div>
+
+      <div class="subsection-title">3.3 Pedestrian Time Benefit Per Event</div>
+      <p class="p">The pedestrian who presses the button avoids a detour to the nearest alternative crossing. We estimate the detour distance at 150 meters in each direction, traversed at a walking speed of 1.4 m/s:</p>
+      <div class="math-line">Detour time = (150 + 150) / 1.4 ≈ 214 seconds ≈ 3.6 minutes</div>
+      <p class="p">Adding an estimated 45-second wait at an unsignalized crossing, total pedestrian time saved is approximately 4.2 minutes.</p>
+
+      <div class="subsection-title">3.4 The Ledger</div>
+      <p class="p">We may now construct a simple utilitarian ledger for a single button-press event:</p>
+      <div class="math-line">Cost (motorists): −9.2 person-minutes</div>
+      <div class="math-line">Benefit (pedestrian): +4.2 person-minutes</div>
+      <div class="math-line">Net utility: −5.0 person-minutes</div>
+      <p class="p">The transaction is, in isolation, a net utilitarian loss. Bentham's calculus, applied naively, condemns the button.</p>
+    </div>
+
+    <!-- 4. Systemic -->
+    <div class="paper-section" id="systemic">
+      <div class="section-head">
+        <span class="section-num-badge">4</span>
+        <span class="section-title-text">The Systemic Reversal: Why the Button is Still Justified</span>
+      </div>
+      <p class="p">The calculation in Section 3 is correct but incomplete. It treats the crossing event as an isolated transaction. Utilitarian analysis, properly applied, must evaluate the policy — not the individual instance.</p>
+
+      <div class="subsection-title">4.1 The Counterfactual City</div>
+      <p class="p">Consider a city in which pedestrian-activated signals are abolished. Pedestrians must now either jaywalk or reroute at every crossing. Without reliable crossing infrastructure, pedestrian behavior becomes unpredictable, increasing the probability of accidents. Each serious pedestrian-vehicle collision generates emergency response delays, lane closures, and investigation periods measurable in thousands of vehicle-hours — a cost that dwarfs the 9.2 person-minutes of our crossing event.</p>
+      <p class="p">The aggregate detour cost across 500 daily crossing events in a buttonless world:</p>
+      <div class="math-line">500 × 3.6 minutes = 1,800 person-minutes of pedestrian time lost per day</div>
+      <p class="p">Against the aggregate motorist cost of 500 button-press events:</p>
+      <div class="math-line">500 × 9.2 minutes = 4,600 person-minutes of motorist time lost per day</div>
+      <p class="p">The button still appears costly. But this calculation omits the third and most significant term.</p>
+
+      <div class="subsection-title">4.2 The Induced Traffic Effect</div>
+      <p class="p">Urban transport research consistently demonstrates that pedestrian-hostile infrastructure reduces walking rates, which increases vehicle mode share, which increases traffic volume (Litman, 2020). A city in which pedestrians cannot cross reliably is a city with more cars. More cars means more congestion means more person-hours lost to all users of the road network, including drivers.</p>
+      <p class="p">This is the systemic reversal. The pedestrian button maintains the conditions under which walking remains a viable urban transport mode. Its long-run effect is to reduce the number of cars on the road — which is, in aggregate, a motorist benefit. The utilitarian arithmetic, viewed at the system level, inverts: the button is net positive.</p>
+
+      <div class="subsection-title">4.3 The Compliance Culture Variable</div>
+      <p class="p">We propose a compliance multiplier κ, defined as the proportion of pedestrians who would use a provided button rather than crossing on red. In Germany, we estimate κ ≈ 0.85. In cities with weaker compliance norms, κ may fall to 0.3 or below.</p>
+      <p class="p">The utilitarian value of the pedestrian button is a monotonically increasing function of κ. The German Bedarfsampel is a utilitarian instrument calibrated to a German public. The same infrastructure installed in a city with κ = 0.2 may well fail the utilitarian test — not because the button is wrong, but because the city is.</p>
+    </div>
+
+    <!-- 5. Placebo -->
+    <div class="paper-section" id="placebo">
+      <div class="section-head">
+        <span class="section-num-badge">5</span>
+        <span class="section-title-text">A Note on the Placebo Button</span>
+      </div>
+      <p class="p">As noted in Section 2, many German pedestrian buttons are functionally inoperative. If the button has no causal effect on signal timing, the utilitarian ledger is precisely zero — which might appear to resolve the paradox in the most efficient manner possible.</p>
+      <p class="p">However, the placebo button is not without function. It may (a) increase pedestrian compliance by providing the sensation of agency, thereby sustaining the κ value that makes the real buttons work, and (b) extend the green phase or activate accessibility features for visually impaired users (The Berliner, 2021). Whether these benefits justify the implicit deception of the pressing public is a question we leave for the companion paper, currently under preparation: "The Ethics of the Placebo Button: Paternalism, Agency, and the Semiotics of Urban Control."</p>
+    </div>
+
+    <!-- 6. Discussion -->
+    <div class="paper-section" id="discussion">
+      <div class="section-head">
+        <span class="section-num-badge">6</span>
+        <span class="section-title-text">Discussion</span>
+      </div>
+      <p class="p">Our analysis demonstrates that the pedestrian-activated traffic signal is utilitarian positive when evaluated at the systemic level, despite being locally negative in the individual crossing transaction. This distinction — between the ethics of the instance and the ethics of the policy — is familiar to moral philosophers but tends to be lost in everyday moral intuitions.</p>
+      <p class="p">The motorist who sits at the red light, watching one person cross, is performing an accurate local calculation: the many are inconvenienced for the one. What the motorist cannot see is the counterfactual — the pedestrian who did not become a car because reliable crossing infrastructure made walking rational, the accident that did not happen because crossing behavior was predictable.</p>
+      <p class="p">This is, in miniature, the characteristic challenge of utilitarian urban planning: the costs are visible, local, and immediate; the benefits are diffuse, systemic, and long-run. The button is a monument to the difficulty of communicating aggregate welfare to individuals experiencing individual inconvenience.</p>
+    </div>
+
+    <!-- 7. Conclusion -->
+    <div class="paper-section" id="conclusion">
+      <div class="section-head">
+        <span class="section-num-badge">7</span>
+        <span class="section-title-text">Conclusion</span>
+      </div>
+      <p class="p">We set out to determine whether one person should be allowed to stop everybody else. The answer is yes, but the justification is not the one most pedestrians would give ("I need to cross") nor the one most motorists fear ("one person's convenience matters more than hundreds"). The justification is systemic: the button maintains the infrastructure of pedestrian mobility, which in turn maintains the conditions under which the road network functions tolerably for all users.</p>
+      <p class="p">The individual crossing event is a utilitarian loss of approximately 5.0 person-minutes. The policy is a utilitarian gain of a magnitude we decline to quantify with false precision, but which is, we assert with confidence, positive and non-trivial.</p>
+      <div class="conclusion-pull">
+        <p>The button is just. Press it without guilt. Wait for the green.</p>
+      </div>
+    </div>
+
+    <!-- Acknowledgements -->
+    <div class="paper-section" id="ack">
+      <div class="section-head">
+        <span class="section-num-badge"></span>
+        <span class="section-title-text">Acknowledgements</span>
+      </div>
+      <div class="ack-box">
+        <p>The author thanks the unnamed German pedestrian whose patient compliance at an empty intersection at an unspecified hour inspired this inquiry. No funding was received for this research. No conflicts of interest are declared. No ethics board approval was sought, as no humans were inconvenienced in the production of this paper beyond those already inconvenienced by ordinary traffic conditions.</p>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="paper-section" id="references">
+      <div class="section-head">
+        <span class="section-num-badge"></span>
+        <span class="section-title-text">References</span>
+      </div>
+      <ul class="references-list">
+        <li>Bentham, J. (1789). An Introduction to the Principles of Morals and Legislation. T. Payne and Son.</li>
+        <li>Bonneson, J. A., Sunkari, S. R., &amp; Pratt, M. P. (2009). Traffic signal operations handbook. Texas Transportation Institute.</li>
+        <li>Eurostat. (2023). Passenger transport statistics. European Commission.</li>
+        <li>Litman, T. (2020). Economic value of walkability. Victoria Transport Policy Institute.</li>
+        <li>Mill, J. S. (1863). Utilitarianism. Parker, Son, and Bourn.</li>
+        <li>NACTO. (2012). Urban street design guide: Signal cycle lengths. National Association of City Transportation Officials.</li>
+        <li>NYC DOT. (2022). Infrastructure: Traffic signals. New York City Department of Transportation.</li>
+        <li>Peglau, K. (1961). Entwicklung des Fußgängerampelmännchens. Institut für Straßenverkehr, East Germany.</li>
+        <li>Schmitt, L., et al. (2022). Saturation flow rate analysis for special width approach lanes: An empirical study in Karlsruhe, Germany. PLOS ONE.</li>
+        <li>The Berliner. (2021, July 22). Idiot buttons: The brutal truth about Berlin's pedestrian crossings.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEXT -->
+<div class="next-paper">
+  <a href="clan-gradient-hypothesis.html" class="next-card">
+    <div class="next-card-label">Next Paper — Premature Theory</div>
+    <div class="next-card-title">Klanism as the Primary Structural Driver of Human Violence: Toward a Clan Gradient Hypothesis</div>
+    <div class="next-card-desc">Hobbes was right about the violence. He was incomplete about the mechanism.</div>
+    <span class="next-arrow">→</span>
+  </a>
+  <a href="submit.html" class="next-card">
+    <div class="next-card-label">Submissions Open</div>
+    <div class="next-card-title">Your Work Belongs Here</div>
+    <div class="next-card-desc">Standards apply. Credentials do not. Send us your genuine question.</div>
+    <span class="next-arrow">→</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <a href="index.html" class="f-logo">Journal of <span>Insignificant</span> Things</a>
+    <div class="f-info">Vol. I · Est. 2026 · ISSN Pending<br>Open Access<br>CC Attribution-Pointless 4.0</div>
+    <div class="f-motto">Credentials Do Not Apply</div>
+  </div>
+  <div class="f-col">
+    <h4>Navigate</h4>
+    <ul>
+      <li><a href="index.html">Homepage</a></li>
+      <li><a href="index.html#papers">Current Issue</a></li>
+      <li><a href="editorial.html">Founding Editorial</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="submit.html">Submit Work</a></li>
+    </ul>
+  </div>
+  <div class="f-col">
+    <h4>Categories</h4>
+    <ul>
+      <li>Mathematical &amp; Physical Sciences</li>
+      <li>Biological Sciences</li>
+      <li>Social &amp; Behavioral Sciences</li>
+      <li>Arts &amp; Cultural Studies</li>
+    </ul>
+  </div>
+  <div class="f-bottom">
+    <div class="f-copy">© 2026 Journal of Insignificant Things · All rights reserved</div>
+    <div class="f-lic">Credentials Do Not Apply</div>
+  </div>
+</footer>
+
+</body>
+</html>
