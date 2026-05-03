@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clan Gradient Hypothesis — Journal of Insignificant Things</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:      #ffffff;
+    --off:        #f5f5ef;
+    --ink:        #0a0a0a;
+    --chartreuse: #d4ff00;
+    --violet:     #7b00ff;
+    --magenta:    #ff0066;
+    --cyan:       #00e5ff;
+    --mid:        #e0e0d8;
+    --muted:      #888880;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    overflow-x: hidden;
+  }
+
+  em, i { font-style: normal; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--white);
+    border-bottom: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo .dot { color: var(--magenta); }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    height: 100%;
+  }
+
+  .nav-links li { height: 100%; }
+
+  .nav-links a {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0 22px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid var(--mid);
+    transition: background 0.15s;
+  }
+
+  .nav-links a:hover { background: var(--chartreuse); }
+
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--chartreuse);
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: background 0.15s;
+    margin-left: 12px;
+  }
+
+  .nav-cta:hover { background: var(--magenta); color: var(--white); }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    margin-top: 60px;
+    border-bottom: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    min-height: 520px;
+  }
+
+  .masthead-left {
+    padding: 64px 64px 56px;
+    border-right: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--off);
+  }
+
+  .paper-tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 13px;
+    color: var(--white);
+  }
+
+  .tag-theory  { background: var(--violet); }
+  .tag-cat     { background: var(--ink); }
+  .tag-track   { background: var(--magenta); }
+
+  .paper-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 3.6vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .paper-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+
+  .paper-byline {
+    padding-top: 28px;
+    border-top: 2px solid var(--mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .byline-info {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .byline-info strong { color: var(--ink); font-weight: 700; }
+
+  .download-btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--chartreuse);
+    border: 2px solid var(--ink);
+    padding: 8px 18px;
+    text-decoration: none;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .download-btn:hover { background: var(--cyan); }
+
+  .masthead-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .masthead-panel {
+    padding: 28px 32px;
+    border-bottom: 2px solid var(--ink);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .masthead-panel:last-child { border-bottom: none; }
+
+  .panel-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .panel-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .panel-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .toc-panel {
+    padding: 28px 32px;
+    background: var(--violet);
+  }
+
+  .toc-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--chartreuse);
+    margin-bottom: 14px;
+  }
+
+  .toc-list { list-style: none; }
+  .toc-list li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .toc-list li:last-child { border-bottom: none; }
+
+  .toc-list a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    padding: 7px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.15s;
+  }
+
+  .toc-list a:hover { color: var(--white); }
+  .toc-arrow { font-size: 14px; }
+
+  /* ── PAPER LAYOUT ── */
+  .paper-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .paper-sidenav {
+    border-right: 2px solid var(--ink);
+    position: sticky;
+    top: 60px;
+    align-self: start;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background: var(--white);
+  }
+
+  .sidenav-inner { padding: 36px 24px; }
+
+  .sidenav-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .sidenav-list { list-style: none; }
+  .sidenav-list li { margin-bottom: 2px; }
+
+  .sidenav-list a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    display: block;
+    padding: 7px 10px;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    line-height: 1.4;
+  }
+
+  .sidenav-list a:hover {
+    color: var(--ink);
+    border-left-color: var(--violet);
+  }
+
+  /* Paper prose */
+  .paper-prose {
+    padding: 72px 88px;
+    max-width: 820px;
+  }
+
+  .abstract-box {
+    background: var(--off);
+    border: 2px solid var(--ink);
+    border-left: 6px solid var(--violet);
+    padding: 32px 40px;
+    margin-bottom: 64px;
+  }
+
+  .abstract-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 14px;
+  }
+
+  .abstract-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #444;
+  }
+
+  .keywords {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .keywords strong { color: var(--ink); font-weight: 700; }
+
+  .paper-section { margin-bottom: 56px; }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-num-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    background: var(--violet);
+    padding: 4px 12px;
+  }
+
+  .section-title-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .subsection-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 32px 0 14px;
+    letter-spacing: 0.03em;
+  }
+
+  .p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: #3a3a3a;
+    margin-bottom: 22px;
+  }
+
+  .p.strong {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Taxonomy indented items */
+  .tax-item {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 10px 0 10px 28px;
+    border-left: 3px solid var(--violet);
+    margin: 8px 0;
+    background: var(--off);
+  }
+
+  /* Formal hypothesis statement */
+  .hypothesis {
+    background: var(--violet);
+    padding: 28px 36px;
+    margin: 28px 0;
+  }
+
+  .hypothesis p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* Testable predictions */
+  .prediction {
+    border: 2px solid var(--ink);
+    padding: 20px 28px;
+    margin: 12px 0;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .pred-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--chartreuse);
+    background: var(--ink);
+    padding: 4px 14px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .pred-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .pred-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 6px;
+  }
+
+  /* Pull quote */
+  .pull {
+    background: var(--chartreuse);
+    border: 2px solid var(--ink);
+    padding: 24px 36px;
+    margin: 36px 0;
+  }
+
+  .pull p {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+
+  /* Footnotes */
+  .footnotes {
+    border-top: 1px solid var(--mid);
+    padding-top: 28px;
+    margin-top: 48px;
+  }
+
+  .footnote-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .footnote-item {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+    padding: 8px 0;
+    padding-left: 24px;
+    text-indent: -24px;
+    border-bottom: 1px solid var(--mid);
+  }
+
+  .footnote-item:last-child { border-bottom: none; }
+  .footnote-num { color: var(--violet); font-weight: 700; }
+
+  .references-list { list-style: none; }
+
+  .references-list li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--mid);
+    padding-left: 20px;
+    text-indent: -20px;
+  }
+
+  .references-list li:last-child { border-bottom: none; }
+
+  .ack-box {
+    background: var(--off);
+    border-left: 4px solid var(--violet);
+    padding: 20px 28px;
+    margin-bottom: 48px;
+  }
+
+  .ack-box p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  /* ── NEXT ── */
+  .next-paper {
+    background: var(--ink);
+    padding: 64px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .next-card {
+    background: #111;
+    padding: 40px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.15s;
+  }
+
+  .next-card:hover { background: #181818; }
+
+  .next-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--chartreuse);
+    margin-bottom: 14px;
+  }
+
+  .next-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .next-card-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+  }
+
+  .next-arrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: rgba(255,255,255,0.15);
+    margin-top: 20px;
+    display: block;
+    transition: color 0.15s;
+  }
+
+  .next-card:hover .next-arrow { color: var(--chartreuse); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+
+  .f-brand { padding: 56px 48px; border-right: 1px solid #1e1e1e; }
+
+  .f-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .f-logo span { color: var(--chartreuse); }
+  .f-info { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #444; line-height: 2; margin-top: 16px; }
+  .f-motto { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--magenta); margin-top: 32px; }
+  .f-col { padding: 56px 40px; border-right: 1px solid #1e1e1e; }
+  .f-col:last-child { border-right: none; }
+  .f-col h4 { font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--chartreuse); margin-bottom: 24px; }
+  .f-col ul { list-style: none; }
+  .f-col ul li { font-family: 'DM Sans', sans-serif; font-size: 13px; color: #555; padding: 7px 0; transition: color 0.15s; }
+  .f-col ul li a { color: inherit; text-decoration: none; }
+  .f-col ul li:hover { color: var(--white); }
+  .f-bottom { grid-column: 1 / -1; border-top: 1px solid #1a1a1a; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .f-copy { font-family: 'DM Sans', sans-serif; font-size: 11px; color: #2e2e2e; }
+  .f-lic { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #252525; }
+
+  @keyframes up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .masthead { animation: up 0.6s ease both; }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .masthead, .paper-layout, .next-paper { grid-template-columns: 1fr; }
+    .masthead-right { display: none; }
+    .masthead-left { padding: 40px 24px; }
+    .paper-sidenav { display: none; }
+    .paper-prose { padding: 48px 24px; }
+    footer { grid-template-columns: 1fr; }
+    .f-brand, .f-col { border-right: none; border-bottom: 1px solid #1a1a1a; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">J<span class="dot">.</span>I<span class="dot">.</span>T</a>
+  <ul class="nav-links">
+    <li><a href="index.html#tracks">Browse</a></li>
+    <li><a href="index.html#papers">Papers</a></li>
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="submit.html" class="nav-cta">Submit Work</a>
+</nav>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-left">
+    <div>
+      <div class="paper-tags">
+        <span class="tag tag-theory">Premature Theory</span>
+        <span class="tag tag-track">Track II</span>
+        <span class="tag tag-cat">Social &amp; Behavioral Sciences</span>
+      </div>
+      <h1 class="paper-title">Klanism as the Primary Structural Driver of Human Violence: Toward a Clan Gradient Hypothesis of Collective Conflict</h1>
+      <p class="paper-subtitle">A refinement of the Hobbesian framework proposing that the primary mechanism of collective violence is kin-protection logic, and that its intensity declines as clan identity moves further from biological kinship.</p>
+    </div>
+    <div class="paper-byline">
+      <div class="byline-info">
+        <strong>Göksu I. O.</strong><br>
+        Authorship: Collaborative (Human-originated theory; AI-assisted drafting)<br>
+        Vol. I, No. 1 · May 2026 · Revised: Unnecessary
+      </div>
+      <a href="clan_gradient_hypothesis.docx" class="download-btn" download>Download .docx ↓</a>
+    </div>
+  </div>
+
+  <div class="masthead-right">
+    <div class="masthead-panel">
+      <div class="panel-label">Reading Time</div>
+      <div class="panel-value">20 Min</div>
+      <div class="panel-sub">Approximately</div>
+    </div>
+    <div class="masthead-panel">
+      <div class="panel-label">Core Claim</div>
+      <div class="panel-value">Klanism</div>
+      <div class="panel-sub">Primary driver of collective violence</div>
+    </div>
+    <div class="masthead-panel">
+      <div class="panel-label">Predictions</div>
+      <div class="panel-value">4</div>
+      <div class="panel-sub">Testable empirical predictions offered</div>
+    </div>
+    <div class="toc-panel">
+      <div class="toc-label">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#abstract">Abstract <span class="toc-arrow">→</span></a></li>
+        <li><a href="#intro">1. Introduction <span class="toc-arrow">→</span></a></li>
+        <li><a href="#klanism">2. Klanism Defined <span class="toc-arrow">→</span></a></li>
+        <li><a href="#judgment">3. The Judgment Principle <span class="toc-arrow">→</span></a></li>
+        <li><a href="#gradient">4. The Clan Gradient <span class="toc-arrow">→</span></a></li>
+        <li><a href="#demographic">5. Demographic Prediction <span class="toc-arrow">→</span></a></li>
+        <li><a href="#boundary">6. Boundary Condition <span class="toc-arrow">→</span></a></li>
+        <li><a href="#implications">7. Implications <span class="toc-arrow">→</span></a></li>
+        <li><a href="#conclusion">8. Conclusion <span class="toc-arrow">→</span></a></li>
+        <li><a href="#references">References <span class="toc-arrow">→</span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PAPER BODY -->
+<div class="paper-layout">
+
+  <div class="paper-sidenav">
+    <div class="sidenav-inner">
+      <div class="sidenav-label">Sections</div>
+      <ul class="sidenav-list">
+        <li><a href="#abstract">Abstract</a></li>
+        <li><a href="#intro">1. Introduction</a></li>
+        <li><a href="#klanism">2. Klanism Defined</a></li>
+        <li><a href="#judgment">3. The Judgment Principle</a></li>
+        <li><a href="#gradient">4. The Clan Gradient</a></li>
+        <li><a href="#demographic">5. Demographic Prediction</a></li>
+        <li><a href="#boundary">6. Boundary Condition</a></li>
+        <li><a href="#implications">7. Implications</a></li>
+        <li><a href="#conclusion">8. Conclusion</a></li>
+        <li><a href="#ack">Acknowledgements</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="paper-prose">
+
+    <!-- Abstract -->
+    <div id="abstract">
+      <div class="abstract-box">
+        <div class="abstract-label">Abstract</div>
+        <p class="abstract-text">This paper proposes the Clan Gradient Hypothesis: the claim that the primary structural driver of collective human violence is not, as Hobbes suggested, the generalized competitive nature of individuals, but rather the kin-protection logic of group loyalty — here termed klanism. We argue that Hobbes correctly identified human competitiveness and the tendency toward violence, but failed to specify the relational mechanism through which this violence is organized, sustained, and institutionalized. We further propose that objective judgment is a function of emotional distance from the subject of judgment — an observation that explains the near-universal human institution of impartial arbitration. The paper advances a historical prediction: as household sizes decline globally and international modes of living fragment traditional kin-group boundaries, the intensity of klan-driven violence will diminish. We distinguish this prediction from naïve optimism by introducing the substitution problem and arguing that substituted clans are structurally weaker than biological ones. Finally, we identify the boundary condition of the theory: psychopathy, which produces violence through an entirely different mechanism and is explicitly excluded from scope. Four testable predictions are offered.</p>
+        <div class="keywords"><strong>Keywords:</strong> klanism, kin selection, political theory, collective violence, tribalism, household size, impartial judgment, Hobbes, clan gradient</div>
+      </div>
+    </div>
+
+    <!-- 1. Introduction -->
+    <div class="paper-section" id="intro">
+      <div class="section-head">
+        <span class="section-num-badge">1</span>
+        <span class="section-title-text">Introduction: The Problem with Hobbes</span>
+      </div>
+      <p class="p">Thomas Hobbes, writing in the shadow of the English Civil War, offered one of the most consequential and unsettling claims in the history of political thought: that human beings, in the absence of a sovereign authority, exist in a condition of perpetual war — the bellum omnium contra omnes, the war of all against all (Hobbes, 1651). He identified three root causes: competition for scarce resources, diffidence arising from mutual distrust, and glory — the desire for reputation and the readiness to defend it with force.</p>
+      <p class="p strong">Hobbes was right about the violence. He was incomplete about the mechanism.</p>
+      <p class="p">The Hobbesian account treats human violence as essentially individual and generalized. But a survey of actual historical violence reveals something more structured. The Holocaust was not committed by psychopaths. The Rwandan genocide was not the eruption of individual avarice. Political corruption is not the behavior of isolated self-maximizers. These are phenomena of organized, sustained, in-group-serving behavior — individuals making locally rational decisions in the service of perceived collective identity.</p>
+      <p class="p">This paper proposes a refinement of the Hobbesian framework. We accept his foundational claim: humans are competitive and prone to violence. We dispute his account of the primary mechanism. The primary mechanism is klanism: the systematic moral privileging of one's perceived kin group, which licenses ethical compromise in the service of group protection and produces the organized, durable violence that actually shapes political history.</p>
+    </div>
+
+    <!-- 2. Klanism -->
+    <div class="paper-section" id="klanism">
+      <div class="section-head">
+        <span class="section-num-badge">2</span>
+        <span class="section-title-text">Klanism: A Definition and Taxonomy</span>
+      </div>
+
+      <div class="subsection-title">2.1 The Core Concept</div>
+      <p class="p">We use the term klanism rather than tribalism or nepotism to avoid specific connotations those terms carry. Klanism, as we define it, is the systematic moral and practical prioritization of one's perceived in-group — however constituted — at the expense of out-group members and impartial ethical standards.</p>
+      <p class="p">The perceived in-group may be defined by biological kinship, but need not be. What defines the klan is not its constitution but its function: the group whose interests the individual systematically places above those of non-members, and in whose defense the individual is prepared to act unethically.</p>
+      <p class="p strong">Klanism, so defined, is not pathological. It is the baseline condition of human social organization — a feature, not a bug, of the evolved social architecture of our species.</p>
+
+      <div class="subsection-title">2.2 The Evolutionary Foundation</div>
+      <p class="p">Wilson's sociobiological program (1975) originally explained cooperative behavior through kin selection theory: organisms behave in ways that maximize the survival of their genes, including copies carried by close relatives. Wilson subsequently revised this position, arguing that group selection better explains the evolution of tribalism and in-group loyalty (Wilson & Wilson, 2007). Under multi-level selection theory, humans are products of competing selective pressures — individual selection promoting selfishness, group selection promoting in-group cooperation and out-group hostility.</p>
+      <p class="p">What both frameworks agree on is the outcome: humans are evolutionarily disposed toward strong in-group preference and corresponding out-group suspicion. This behavioral result is our theory's starting point.</p>
+
+      <div class="subsection-title">2.3 A Taxonomy of Klan Types</div>
+      <p class="p">We propose a preliminary taxonomy ordered roughly by biological proximity:</p>
+      <div class="tax-item">Primary klans: nuclear family, extended family, lineage group</div>
+      <div class="tax-item">Secondary klans: ethnic group, religious community, regional identity</div>
+      <div class="tax-item">Tertiary klans: national identity, class, professional guild</div>
+      <div class="tax-item">Quaternary klans: political party, ideological movement, online community</div>
+      <p class="p" style="margin-top: 20px;">Klan intensity — the strength of obligation and willingness to act unethically in the klan's service — diminishes as one moves from primary to quaternary types. A person will typically do more for their child than for their party. This gradient is the central structural feature of the theory.</p>
+    </div>
+
+    <!-- 3. Judgment Principle -->
+    <div class="paper-section" id="judgment">
+      <div class="section-head">
+        <span class="section-num-badge">3</span>
+        <span class="section-title-text">The Judgment Principle</span>
+      </div>
+      <p class="p">We term a second foundational principle the Judgment Principle: the capacity for objective, rational, and ethical judgment is inversely proportional to one's emotional and klan-based investment in the outcome.</p>
+      <p class="p">This principle is so widely accepted that it has been institutionalized across virtually every human culture and legal system. The institution of the independent judge exists precisely because proximity to a case corrupts judgment. Blind peer review exists because knowing the identity of an author introduces klan-based assessment. The international arbitrator, the neutral mediator, and the independent auditor all rest on the same foundation: emotional distance is a prerequisite for reliable judgment.</p>
+
+      <div class="pull">
+        <p>These institutions are not independent inventions arising from accidental wisdom. They are convergent solutions to the same underlying problem: the systematic bias introduced by klan membership into all evaluative functions.</p>
+      </div>
+
+      <p class="p">The politician who awards contracts to party donors, the academic who protects a colleague's fraudulent data, the police officer who fails to report a peer's misconduct — these are not failures of individual character. They are predictable outputs of klan logic operating in contexts that formally demand impartiality.</p>
+      <p class="p">The policy implication: institutional design must assume klan bias as the default state of human judgment, not as an exception. Effective governance structures create systematic emotional distance between decision-makers and the subjects of their decisions.</p>
+    </div>
+
+    <!-- 4. The Gradient -->
+    <div class="paper-section" id="gradient">
+      <div class="section-head">
+        <span class="section-num-badge">4</span>
+        <span class="section-title-text">The Clan Gradient Hypothesis</span>
+      </div>
+
+      <div class="subsection-title">4.1 The Core Claim</div>
+      <p class="p">We are now in a position to state the Clan Gradient Hypothesis formally:</p>
+      <div class="hypothesis">
+        <p>Violence intensity — defined as the willingness of individuals to cause harm to out-group members in service of in-group interests — is a monotonically decreasing function of the distance between the biological kinship that originally constituted the klan and the current klan type.</p>
+      </div>
+      <p class="p">In plain terms: people are more willing to commit more serious harm in defense of biologically proximate klans than in defense of more distant ones. The magnitude of klan-mediated violence is greatest for primary klans and diminishes as the klan moves toward quaternary types.</p>
+
+      <div class="subsection-title">4.2 Historical Evidence</div>
+      <p class="p">The most sustained and systematic forms of collective violence — genocide, ethnic cleansing, hereditary feuding, honor killing — are concentrated at the primary and secondary klan levels. Ethnic and religious violence is historically more intense and durable than ideological or political violence, which tends to dissolve more readily when conditions change.</p>
+      <p class="p">Pinker's documentation of the long-run decline of violence (2011) is consistent with the gradient hypothesis, though Pinker attributes the decline to different mechanisms. We propose that those mechanisms — commerce, literacy, the nation-state — work precisely by attenuating klan boundaries. The gradient, in this reading, is what Pinker's mechanisms are actually shifting. This is a difference of mechanism, not of empirical trend.</p>
+
+      <div class="subsection-title">4.3 The Substitution Problem</div>
+      <p class="p">The most serious objection to the gradient hypothesis: when biological family structures weaken, people do not become less tribal. They find new klans. The decline of the extended family has been accompanied by the rise of national identity, political partisanship, and online communities — all of which exhibit recognizable klan dynamics.</p>
+      <p class="p">We accept the substitution problem as real. The question is not whether substitution occurs — it clearly does — but whether substituted klans are functionally equivalent to biological ones in their capacity to generate violence.</p>
+      <p class="p">We argue they are not, for three reasons: the felt obligation to substituted klans is structurally weaker; substituted klans are more permeable (membership can change, reducing the absoluteness of obligation); and substituted klans have more fluid boundaries, making it harder to sustain the categorical in-group/out-group distinction that licenses serious violence.</p>
+      <p class="p strong">The prediction is not the elimination of tribalism, but the progressive substitution of high-intensity biological klanism with lower-intensity cultural tribalism — producing a decline in violence even as tribalism persists in attenuated form.</p>
+    </div>
+
+    <!-- 5. Demographic Prediction -->
+    <div class="paper-section" id="demographic">
+      <div class="section-head">
+        <span class="section-num-badge">5</span>
+        <span class="section-title-text">The Demographic Prediction</span>
+      </div>
+
+      <div class="subsection-title">5.1 The Global Household Decline</div>
+      <p class="p">Global household size has declined steadily over the past five decades, by approximately 0.5 persons per decade on average (Gale et al., 2024). In 2025, average household size ranges from 10.63 persons in Senegal to 1.98 in Denmark (World Economic Forum, 2025). Urbanization promotes individualism and nuclear family structures; international migration fragments biological klan networks and increases exposure to diverse out-groups.</p>
+
+      <div class="subsection-title">5.2 The Testable Predictions</div>
+      <p class="p">We predict the following empirical relationships, testable with longitudinal cross-national data:</p>
+
+      <div class="prediction">
+        <div class="pred-num">P1</div>
+        <div>
+          <div class="pred-label">Cross-national</div>
+          <div class="pred-text">Countries with smaller average household sizes will exhibit lower rates of ethnically and religiously motivated collective violence, controlling for economic development and institutional quality.</div>
+        </div>
+      </div>
+
+      <div class="prediction">
+        <div class="pred-num">P2</div>
+        <div>
+          <div class="pred-label">Longitudinal</div>
+          <div class="pred-text">Within countries, periods of declining household size will be associated with declining rates of collective in-group motivated violence, with an estimated lag of one to two generations.</div>
+        </div>
+      </div>
+
+      <div class="prediction">
+        <div class="pred-num">P3</div>
+        <div>
+          <div class="pred-label">Individual level</div>
+          <div class="pred-text">Internationally mobile populations will exhibit measurably lower klan-motivated ethical bias in experimental judgment tasks than non-mobile populations with equivalent socioeconomic profiles.</div>
+        </div>
+      </div>
+
+      <div class="prediction">
+        <div class="pred-num">P4</div>
+        <div>
+          <div class="pred-label">Substitution offset</div>
+          <div class="pred-text">In societies where household decline is accompanied by strong substituted klan formation (e.g., intense political polarization), the violence decline predicted by P1 and P2 will be partially offset — but not reversed — by the structurally weaker violence of quaternary klan conflict.</div>
+        </div>
+      </div>
+
+      <p class="p" style="margin-top: 28px;">We note that these predictions are not tested in the present paper. We offer them as the proper output of a theoretical paper at this stage of development, and invite empirical researchers to do the difficult work we have described but not performed.</p>
+    </div>
+
+    <!-- 6. Boundary Condition -->
+    <div class="paper-section" id="boundary">
+      <div class="section-head">
+        <span class="section-num-badge">6</span>
+        <span class="section-title-text">The Boundary Condition: Psychopathy and Non-Klan Violence</span>
+      </div>
+      <p class="p">The Clan Gradient Hypothesis is a theory of structural, collective, klan-mediated violence. It is explicitly not a theory of all violence.</p>
+      <p class="p">The primary category outside the theory's scope is violence arising from psychopathy. The psychopathic individual does not harm out-group members in service of in-group protection; they harm others in pursuit of individual gratification, in the context of a self that is effectively klan-less. Klan loyalty requires the capacity for emotional attachment to others — precisely what psychopathy impairs.</p>
+      <p class="p">The boundary condition reveals that klanism and psychopathy represent opposite failures of the social architecture: klanism is excessive in-group attachment, producing harm to out-groups; psychopathy is the absence of in-group attachment, producing harm indiscriminately.</p>
+
+      <div class="pull">
+        <p>Psychopaths cause crime. Klanism causes history. The gradient hypothesis addresses the phenomenon that matters most at the level of political analysis.</p>
+      </div>
+    </div>
+
+    <!-- 7. Implications -->
+    <div class="paper-section" id="implications">
+      <div class="section-head">
+        <span class="section-num-badge">7</span>
+        <span class="section-title-text">Implications for Political Governance</span>
+      </div>
+      <p class="p">First, institutional design should proceed from the assumption that decision-makers are klan-biased by default. Institutions that rely on individual virtue to produce impartiality will systematically fail. Institutions that structurally separate decision-makers from the subjects of their decisions — through independence requirements, rotation, anonymization, and external oversight — will systematically succeed.</p>
+      <p class="p">Second, policies that accelerate the demographic transition — urbanization, international mobility, educational investment, and gender equality — are, under this theory, also peace-promoting policies. Development policy and conflict prevention policy are, in this reading, the same policy.</p>
+      <p class="p">Third, the substitution problem demands attention. The rise of extreme political polarization in countries with small household sizes — the United States being the most salient example — is consistent with quaternary klan dynamics partially offsetting the violence-reducing effects of demographic transition.</p>
+    </div>
+
+    <!-- 8. Conclusion -->
+    <div class="paper-section" id="conclusion">
+      <div class="section-head">
+        <span class="section-num-badge">8</span>
+        <span class="section-title-text">Conclusion</span>
+      </div>
+      <p class="p">Hobbes saw violence and asked: what restrains it? His answer — the sovereign — remains essential. But his diagnosis of the cause was incomplete. Violence is not primarily the product of individual appetite competing against all others. It is primarily the product of individuals serving their groups against other groups: a structural phenomenon rooted in the evolved architecture of in-group loyalty.</p>
+      <p class="p">The Clan Gradient Hypothesis proposes that the intensity of this group-mediated violence is not fixed. It varies as a function of the biological proximity of the klan in question, declining as klan identity shifts from biological family toward cultural and ideological affiliation. It is further modifiable by demographic and institutional conditions — specifically, the global trend toward smaller households and more internationally diffuse social networks.</p>
+      <p class="p">Psychopaths will remain. That problem belongs to a different theory. But the organized, sustained, institutionalized violence that defines political history — the kind that requires normal people making locally rational decisions at scale — is, we argue, primarily a klan problem. And klan problems are, in principle, structurally tractable.</p>
+
+      <div class="pull">
+        <p>The button that stops the violence is demographic. It is already being pressed. We will not see the green for some time.</p>
+      </div>
+    </div>
+
+    <!-- Acknowledgements -->
+    <div class="paper-section" id="ack">
+      <div class="section-head">
+        <span class="section-num-badge"></span>
+        <span class="section-title-text">Acknowledgements</span>
+      </div>
+      <div class="ack-box">
+        <p>The author thanks Thomas Hobbes for being right about the important part and incomplete about the interesting part. E. O. Wilson is thanked for a career of uncomfortable biological clarity. Steven Pinker is thanked for the data, with respectful disagreement about the mechanism. No funding was received. No conflicts of interest are declared. The author's own klan biases, being human, are acknowledged as irresolvable but hopefully contained by the act of making them explicit.</p>
+      </div>
+
+      <div class="footnotes">
+        <div class="footnote-label">Footnotes</div>
+        <div class="footnote-item"><span class="footnote-num">1 </span>The term klanism is coined here for theoretical precision. The author acknowledges its proximity to existing terms and distances it from any pejorative historical usage.</div>
+        <div class="footnote-item"><span class="footnote-num">2 </span>The gradient is proposed as a structural tendency, not a universal law. Counterexamples exist — ideological movements have produced genocide — but these typically involve the biologization of the ideological category (e.g., racial ideology converting a tertiary klan into a pseudo-primary one).</div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="paper-section" id="references">
+      <div class="section-head">
+        <span class="section-num-badge"></span>
+        <span class="section-title-text">References</span>
+      </div>
+      <ul class="references-list">
+        <li>FasterCapital. (2024). Household size: Demographic analysis: Unraveling household size patterns.</li>
+        <li>Gale, J., et al. (2024). A global perspective on household size and composition, 1970–2020. Genus. https://doi.org/10.1186/s41118-024-00211-6</li>
+        <li>Hobbes, T. (1651). Leviathan, or the matter, forme, and power of a common-wealth ecclesiasticall and civill. Andrew Crooke.</li>
+        <li>Pinker, S. (2011). The better angels of our nature: Why violence has declined. Viking.</li>
+        <li>Simmel, G. (1903). The metropolis and mental life. In D. Levine (Ed.), Georg Simmel on individuality and social forms. University of Chicago Press.</li>
+        <li>United Nations Population Division. (2017). Patterns and trends in household size and composition. United Nations.</li>
+        <li>Wilson, E. O. (1975). Sociobiology: The new synthesis. Belknap Press of Harvard University Press.</li>
+        <li>Wilson, E. O. (2012). The social conquest of earth. Liveright Publishing.</li>
+        <li>Wilson, D. S., &amp; Wilson, E. O. (2007). Rethinking the theoretical foundation of sociobiology. The Quarterly Review of Biology, 82(4), 327–348.</li>
+        <li>World Economic Forum. (2025). How individual households shape global economic development.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- NEXT -->
+<div class="next-paper">
+  <a href="one-button-full-stop.html" class="next-card">
+    <div class="next-card-label">Also in This Issue — Research</div>
+    <div class="next-card-title">One Button, Full Stop: The Utilitarian Calculus of the Pedestrian-Activated Traffic Signal</div>
+    <div class="next-card-desc">One person presses a button. Hundreds of cars stop. Is this morally justified?</div>
+    <span class="next-arrow">→</span>
+  </a>
+  <a href="submit.html" class="next-card">
+    <div class="next-card-label">Submissions Open</div>
+    <div class="next-card-title">Your Work Belongs Here</div>
+    <div class="next-card-desc">Standards apply. Credentials do not. Send us your genuine question.</div>
+    <span class="next-arrow">→</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <a href="index.html" class="f-logo">Journal of <span>Insignificant</span> Things</a>
+    <div class="f-info">Vol. I · Est. 2026 · ISSN Pending<br>Open Access<br>CC Attribution-Pointless 4.0</div>
+    <div class="f-motto">Credentials Do Not Apply</div>
+  </div>
+  <div class="f-col">
+    <h4>Navigate</h4>
+    <ul>
+      <li><a href="index.html">Homepage</a></li>
+      <li><a href="index.html#papers">Current Issue</a></li>
+      <li><a href="editorial.html">Founding Editorial</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="submit.html">Submit Work</a></li>
+    </ul>
+  </div>
+  <div class="f-col">
+    <h4>Categories</h4>
+    <ul>
+      <li>Mathematical &amp; Physical Sciences</li>
+      <li>Biological Sciences</li>
+      <li>Social &amp; Behavioral Sciences</li>
+      <li>Arts &amp; Cultural Studies</li>
+    </ul>
+  </div>
+  <div class="f-bottom">
+    <div class="f-copy">© 2026 Journal of Insignificant Things · Göksu I. O.</div>
+    <div class="f-lic">Credentials Do Not Apply</div>
+  </div>
+</footer>
+
+</body>
+</html>
